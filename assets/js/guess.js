@@ -17,8 +17,8 @@ let livesRemaining = 9;
 // DOM
 let docFruitWord = document.getElementById('fruitWord');
 let docCorrectGuess = document.getElementById('correctGuess');
-let docWrongGuess = document.getElementById('wrongGuess');
-let docLives = document.getElementById('livesLeft');
+let docWrongGuess = document.getElementById('wrongLetters');
+let docLives = document.getElementById('lifeCounter');
 
 
 
@@ -49,7 +49,8 @@ function game() {
 }
 
 // compares input to answer key
-function fruitCheck(letter) {
+
+function fruitCheck(letter) { 
     let letterCheck = false;
     //if the generated randomword is equal to the letter entered... then variable is true
     for (let i = 0; i < underscore; i++) {
@@ -67,20 +68,37 @@ function fruitCheck(letter) {
             }
         }
     }
+
     //otherwise, push the incorrect guess in the wrong guesses section, and reduce remaining guesses
     else {
         wrongGuess.push(letter);
         docWrongGuess.innerText = wrongGuess.join(' ');
         livesRemaining--;
-        docLives.innerText = "Lives left: " + livesRemaining;
+        docLives.innerText = livesRemaining;
     }
     // console.log(correctLetters);
 }
 
-// reset
+const alternateFruitCheck = letter => { //idk if you want to keep it as es6. 
+    //if the letter is in the word, print
+    for (let i=0; i<underscore; i++) { 
+        if (fruitLetters[i] === letter) {
+            correctLetters[i] = letter; 
+            docFruitWord.innerText = correctLetters.join(' ');
+        }
+    }
+    //if the letter isnt in the word take life
+    if (fruitLetters.indexOf(letter) === -1) { 
+        wrongGuess.push(letter);
+        docWrongGuess.innerText = wrongGuess.join(' ');
+        livesRemaining--;
+        docLives.innerText = livesRemaining;
+    }
+};  
 function reset() {
     livesRemaining = 9;
     wrongGuess = [];
+    docWrongGuess.innerText = " "; //<---- that would work.... 
     correctLetters = [];
     game()
 }
@@ -98,7 +116,7 @@ function end() {
         alert("Yikes... you need to read up on your fruits.");
     }
 
-    // document.getElementById('livesleft').innerText = livesRemaining;
+    docLives.innerText = livesRemaining;
 }
 
 
@@ -112,8 +130,9 @@ game();
 //Listens for letter inputs
 document.addEventListener('keypress', (event) => {
     let keyWord = String.fromCharCode(event.keyCode);
-    fruitCheck(keyWord);
+    // fruitCheck(keyWord);
+    alternateFruitCheck(keyWord);
     end();
     console.log(keyWord);
     
-});
+}); 
