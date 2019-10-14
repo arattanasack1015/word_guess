@@ -15,10 +15,10 @@ let losses = 0;
 let livesRemaining = 9;
 
 // DOM
-let docFruitWord = document.getElementsByClassName('fruitWord');
-let docCorrectGuess = document.getElementsByClassName('correctGuess');
-let docWrongGuess = document.getElementsByClassName('wrongGuess');
-let docLives = document.getElementsByClassName('life');
+let docFruitWord = document.getElementById('fruitWord');
+let docCorrectGuess = document.getElementById('correctGuess');
+let docWrongGuess = document.getElementById('wrongGuess');
+let docLives = document.getElementById('livesLeft');
 
 
 
@@ -39,13 +39,13 @@ function game() {
     }
 
     //showing the "_" within HTML
-    docFruitWord[0].innerHTML = "  " + correctLetters.join("  ");
+    docFruitWord.innerText = "  " + correctLetters.join("  ");
 
     //console logging 
-    console.log('randomFruit', randomFruit);
-    console.log('fruitLetters', fruitLetters)
-    console.log('underscore', underscore)
-    console.log('correctLetters', correctLetters)
+    // console.log('randomFruit', randomFruit);
+    // console.log('fruitLetters', fruitLetters)
+    // console.log('underscore', underscore)
+    // console.log('correctLetters', correctLetters)
 }
 
 // compares input to answer key
@@ -53,7 +53,7 @@ function fruitCheck(letter) {
     let letterCheck = false;
     //if the generated randomword is equal to the letter entered... then variable is true
     for (let i = 0; i < underscore; i++) {
-        if (fruitLetters[i] == letter) {
+        if (fruitLetters[i] === letter) {
             letterCheck = true;
         }
     }
@@ -61,20 +61,20 @@ function fruitCheck(letter) {
     if (letterCheck) {
         //check each letter to see if it matches word
         for (let i = 0; i < underscore; i++) {
-            if (fruitLetters[i] == letter) {
+            if (fruitLetters[i] === letter) {
                 correctLetters[i] = letter;
+                docFruitWord.innerText = correctLetters.join(' ');
             }
         }
     }
     //otherwise, push the incorrect guess in the wrong guesses section, and reduce remaining guesses
     else {
         wrongGuess.push(letter);
-        docWrongGuess[0].innerHTML = wrongGuess.join(' ');
+        docWrongGuess.innerText = wrongGuess.join(' ');
         livesRemaining--;
-        livesRemaining.toString();
-        docLives[0].innerHTML = livesRemaining.join(' ');
+        docLives.innerText = "Lives left: " + livesRemaining;
     }
-    console.log(correctLetters);
+    // console.log(correctLetters);
 }
 
 // reset
@@ -88,7 +88,7 @@ function reset() {
 function end() {
     console.log("wins:" + wins + "| losses:" + losses + "| guesses left:" + livesRemaining)
 
-    if (fruitLetters.toString() == correctLetters.toString()) {
+    if (fruitLetters.toString() === correctLetters.toString()) {
         wins++;
         reset();
         alert("Wow! you've won " + wins + " times!");
@@ -97,6 +97,8 @@ function end() {
         reset();
         alert("Yikes... you need to read up on your fruits.");
     }
+
+    // document.getElementById('livesleft').innerText = livesRemaining;
 }
 
 

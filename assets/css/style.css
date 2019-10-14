@@ -7,7 +7,7 @@ header {
     width: 75%;
 }
 
-.livesLeft {
+#livesLeft {
     border: 3px solid black;
     font-size: 20px;
     text-align: center;
@@ -16,7 +16,7 @@ header {
     width: 75%;
 }
 
-.wrongGuess {
+#wrongGuess {
     border: 3px solid black;
     font-size: 20px;
     text-align: center;
@@ -25,7 +25,7 @@ header {
     width: 75%;
 }
 
-.fruitWord {
+#fruitWord {
     border: 3px solid black;
     font-size: 40px;
     text-align: center;
