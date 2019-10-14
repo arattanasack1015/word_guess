@@ -71,7 +71,7 @@ function fruitCheck(letter) {
         wrongGuess.push(letter);
         docWrongGuess[0].innerHTML = wrongGuess.join(' ');
         livesRemaining--;
-
+        livesRemaining.toString();
         docLives[0].innerHTML = livesRemaining.join(' ');
     }
     console.log(correctLetters);
